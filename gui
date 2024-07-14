@@ -1,0 +1,243 @@
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(824, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(-90, -90, 1101, 731))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("B.G/Black_Template.jpg"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(400, 340, 461, 221))
+        self.label_2.setText("")
+        self.label_2.setPixmap(QtGui.QPixmap("used/Nt6v.gif"))
+        self.label_2.setScaledContents(True)
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(-70, 20, 451, 241))
+        self.label_3.setText("")
+        self.label_3.setPixmap(QtGui.QPixmap("used/loader.gif"))
+        self.label_3.setScaledContents(True)
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(0, 400, 441, 141))
+        self.label_4.setText("")
+        self.label_4.setPixmap(QtGui.QPixmap("used/initiater.gif"))
+        self.label_4.setScaledContents(True)
+        self.label_4.setObjectName("label_4")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(560, 40, 261, 141))
+        self.label_5.setText("")
+        self.label_5.setPixmap(QtGui.QPixmap("used/Health_Template.gif"))
+        self.label_5.setScaledContents(True)
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setGeometry(QtCore.QRect(300, 240, 241, 131))
+        self.label_6.setText("")
+        self.label_6.setPixmap(QtGui.QPixmap("used/hacker bg.gif"))
+        self.label_6.setScaledContents(True)
+        self.label_6.setObjectName("label_6")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(350, 80, 131, 41))
+        self.pushButton.setStyleSheet("background-color: rgb(170, 255, 0);\n"
+"font: 75 14pt \"MS Shell Dlg 2\";")
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(350, 140, 131, 41))
+        self.pushButton_2.setStyleSheet("background-color: rgb(170, 255, 0);\n"
+"font: 75 14pt \"MS Shell Dlg 2\";")
+        self.pushButton_2.setObjectName("pushButton_2")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 824, 21))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pushButton.setText(_translate("MainWindow", "START"))
+        self.pushButton_2.setText(_translate("MainWindow", "EXIT"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+
+
+    GUIfrom jarvisUi import Ui_MainWindow
+from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtGui import QMovie
+
+import pyttsx3 as st
+import speech_recognition as sr
+from PyQt5.QtCore import QThread, QTimer
+import sys
+
+class MainThread(QThread):
+    def __init__(self):
+        super(MainThread, self).__init__()
+
+    def run(self):
+        self.task_gui()
+
+    def Speak(self, text):
+        Assistant = st.init("sapi5")
+        voices = Assistant.getProperty('voices')
+        Assistant.setProperty('voices', voices[0].id)
+        Assistant.setProperty('volume', 1000)
+        Assistant.setProperty('rate', 170)
+
+        print(f"Your text: {text}\n")
+
+        Assistant.say(text)
+        Assistant.runAndWait()
+
+    def takeCommand(self):
+        command = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Listening....")
+            command.pause_threshold = 1
+            audio = command.listen(source, 0, 7)
+
+            try:
+                print("Recognizing....")
+                query = command.recognize_google(audio, language='en')
+                print(f"You said: {query.lower()}")
+            except Exception as Error:
+                return None
+            query = str(query).lower()
+        return query
+
+    def task_gui(self):
+        self.query = self.takeCommand()
+        if 'hello' in self.query:
+            self.Speak("hello sir")
+
+startFunction = MainThread()
+
+class Gui_Start(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.jarvis_ui = Ui_MainWindow()
+        self.jarvis_ui.setupUi(self)
+
+        self.jarvis_ui.pushButton.clicked.connect(self.startFunc)
+        self.jarvis_ui.pushButton_2.clicked.connect(self.close)
+
+    def startFunc(self):
+        self.jarvis_ui.movies = QMovie("used/Nt6v.gif")
+        self.jarvis_ui.label_2.setMovie(self.jarvis_ui.movies)
+        self.jarvis_ui.movies.start()
+
+        self.jarvis_ui.movies = QMovie("used/loader.gif")
+        self.jarvis_ui.label_3.setMovie(self.jarvis_ui.movies)
+        self.jarvis_ui.movies.start()
+
+        self.jarvis_ui.movies = QMovie("used/initiater.gif")
+        self.jarvis_ui.label_4.setMovie(self.jarvis_ui.movies)
+        self.jarvis_ui.movies.start()
+
+        self.jarvis_ui.movies = QMovie("used/Health_Template.gif")
+        self.jarvis_ui.label_5.setMovie(self.jarvis_ui.movies)
+        self.jarvis_ui.movies.start()
+
+        self.jarvis_ui.movies = QMovie("used/hacker bg.gif")
+        self.jarvis_ui.label_6.setMovie(self.jarvis_ui.movies)
+        self.jarvis_ui.movies.start()
+
+        startFunction.start()
+        
+    def runTaskExecution(self):
+        # This method will be called after a 1-second delay
+        # It ensures that the main window is open before starting taskExecution
+        self.jarvis_ui.label.setText("Main Window is ready!")
+
+        # Now you can start your taskExecution
+        taskExecution()
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+    window = Gui_Start()
+    window.show()
+    sys.exit(app.exec_())
+
+
+
+PROGRAM
+
+
+
+import pyttsx3 as st
+import speech_recognition as sr
+from googletrans import Translator
+
+
+def Speak(text): #jarvis output generator
+    Assistant = st.init("sapi5")
+    voices = Assistant.getProperty('voices')
+    Assistant.setProperty('voices',voices[0].id)
+    Assistant.setProperty('volume',1000)
+    Assistant.setProperty('rate',170)
+   
+    
+    print(f"Your text : {text}")
+    print(" ")
+
+    Assistant.say(text)
+    Assistant.runAndWait()
+
+def takeCommand():   # taking input from user
+    command = sr.Recognizer()
+    with sr.Microphone() as source :
+        print("Listening....")
+        command.pause_threshold  =1
+        audio = command.listen(source,0,7)
+
+        try :
+            print("Recognizing....")
+            query = command.recognize_google(audio,language = 'en')
+            print(f"You said : {query.lower()}")
+        except Exception as Error:
+            return None
+        query = str(query).lower()
+    return query
+
+def takeHindi():   # taking input from user
+    command = sr.Recognizer()
+    with sr.Microphone() as source :
+        print("Listening....")
+        command.pause_threshold  =1
+        audio = command.listen(source,0,7)
+
+        try :
+            print("Recognizing....")
+            query = command.recognize_google(audio,language = 'hi')
+            print(f"You said : {query}")
+        except Exception as Error:
+            return None
+        query = query.lower()
+    return query
+
+
+    
+
+
+        
