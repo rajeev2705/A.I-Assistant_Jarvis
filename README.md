@@ -1,71 +1,41 @@
-# A.I-Assistant_Jarvis
-This my First project on A.I assistant using python
-
-AI Assistant
+AI Assistant Program
 Overview
-This Python-based AI assistant is designed to automate tasks and provide interactive responses through voice commands. It leverages various APIs and modules for functionalities such as voice recognition, web searches, automation, weather updates, music playback, and more.
+This program is a voice-controlled AI assistant capable of performing various tasks through voice commands. It leverages different APIs and libraries to execute actions like opening applications, performing web searches, playing music, retrieving weather information, and more.
 
+Features
+Voice Control: Activate the assistant by saying "wake up".
+Command Capabilities: Execute tasks such as:
+Opening software applications (open notepad).
+Performing web searches on Google (google search how to use Python).
+Playing songs on Spotify (play song Shape of You).
+Getting weather information (weather in New York).
+Taking screenshots (take screenshot).
+Interacting with Wikipedia (wikipedia search Artificial Intelligence).
+Language Support: Supports commands in both Hindi and English; automatically detects the language for responses.
 Setup Instructions
-Clone the Repository: Download or clone the repository to your local machine.
+API Configuration:
 
-Install Dependencies: Ensure Python 3.7 or higher is installed. Install dependencies using:
+Obtain API keys for services like OpenWeatherMap, IPGeolocation, and generative AI.
+Replace placeholders in the code (API_KEY_OPENWEATHERMAP, API_KEY_IPGEOLOCATION, API_KEYS) with your actual API keys.
+Software Configuration:
 
-Copy code
-pip install -r requirements.txt
-API Keys Setup: Replace placeholder API keys in main.py with your actual keys for services like OpenWeatherMap, IP Geolocation, etc.
+Customize SOFTWARES and SOFTWARE_PATHS lists to match the applications you want to open with voice commands.
+Dependencies:
 
-Run the Program: Start the assistant by running:
+Install required Python packages using pip install -r requirements.txt.
+Ensure all dependencies are installed and up-to-date.
+Usage
+Starting the Assistant:
 
-css
-Copy code
-python main.py
-How to Use
-Wake Up Command: Activate the assistant by saying "Wake up" followed by your query or command.
+Run Main.py to start the assistant.
+Interacting with the Assistant:
 
-Voice Commands: Speak clearly to interact with the assistant and perform various tasks.
+Say "wake up" to activate the assistant.
+Speak commands naturally (e.g., "play song", "weather in city", "open software").
+Voice Commands:
 
-Key Features
-Voice Interaction: Engage in natural conversations for queries and commands.
-
-AI Chatbot: Ask questions and receive AI-generated responses.
-
-Automation: Open applications, perform web searches, take screenshots, and close applications.
-
-Location and Weather: Get current location details and real-time weather updates.
-
-Spotify Integration: Play music from Spotify by specifying the song name.
-
-Example Usage
-Ask for Weather:
-
-sql
-Copy code
-User: "What's the weather like in New York today?"
-Assistant: Provides current weather information for New York.
-Play Music on Spotify:
-
-vbnet
-Copy code
-User: "Play the song 'Shape of You'."
-Assistant: Opens Spotify and plays the requested song.
-Open Software:
-
-vbnet
-Copy code
-User: "Open Chrome."
-Assistant: Launches the Google Chrome browser.
-Engage in Conversation:
-
-vbnet
-Copy code
-User: "How are you?"
-Assistant: Responds with a programmed greeting or acknowledgment.
-Troubleshooting
-Ensure your microphone is set up and working correctly.
-
-Verify API keys are correctly inserted and active for weather, location, and other API-based functionalities.
-
-Customization
-Customize or extend functionalities by editing main.py and adding new features or commands as needed.
-Enjoy Your Assistant!
-Your AI assistant is ready to assist you with tasks and inquiries. Experiment with different commands and enjoy the convenience of voice-activated automation and information retrieval.
+Speak clearly and wait for the assistant to process your command.
+Use Hindi or English interchangeably; the assistant detects and responds accordingly.
+Additional Notes
+Adjust settings and functionalities in the code to suit your specific needs.
+Ensure a stable internet connection for web-based functionalities.
